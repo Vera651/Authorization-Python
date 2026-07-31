@@ -9,23 +9,25 @@ from main_page import MainPage
 from cart_page import CartPage
 from checkout_page import CheckoutPage
 
-driver = webdriver.Firefox(service=FirefoxService(GeckoDriverManager().install()))
-driver.get("https://www.saucedemo.com/")
 
-login_page = LoginPage(driver)
-login_page.login("standard_user", "secret_sauce")
+def test_shop():
+    driver = webdriver.Firefox(service=FirefoxService(GeckoDriverManager().install()))
+    driver.get("https://www.saucedemo.com/")
 
-main_page = MainPage(driver)
-main_page.add_to_cart("sauce-labs-backpack")
-main_page.add_to_cart("sauce-labs-bolt-t-shirt")
-main_page.add_to_cart("sauce-labs-onesie")
-main_page.go_to_cart()
+    login_page = LoginPage(driver)
+    login_page.login("standard_user", "secret_sauce")
 
-cart_page = CartPage(driver)
-cart_page.checkout()
+    main_page = MainPage(driver)
+    main_page.add_to_cart("sauce-labs-backpack")
+    main_page.add_to_cart("sauce-labs-bolt-t-shirt")
+    main_page.add_to_cart("sauce-labs-onesie")
+    main_page.go_to_cart()
 
-checkout_page = CheckoutPage(driver)
-checkout_page.fill_form("Вера", "Крючкова", "000350")
-checkout_page.verify_total("58.29")
+    cart_page = CartPage(driver)
+    cart_page.checkout()
 
-driver.quit()
+    checkout_page = CheckoutPage(driver)
+    checkout_page.fill_form("Вера", "Крючкова", "000350")
+    checkout_page.verify_total("58.29")
+
+    driver.quit()
